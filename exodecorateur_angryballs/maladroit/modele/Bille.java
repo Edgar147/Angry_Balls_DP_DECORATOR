@@ -1,6 +1,8 @@
 package exodecorateur_angryballs.maladroit.modele;
 
 import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.Vector;
 
 import mesmaths.cinematique.Cinematique;
@@ -22,8 +24,7 @@ import mesmaths.geometrie.base.Vecteur;
  *  
  * 
  * */
-public abstract class Bille
-{
+public abstract class Bille implements ItemListener {
 //----------------- classe Bille-------------------------------------
 
 public  Vecteur position;   // centre de la bille
@@ -70,7 +71,7 @@ this(position,rayon,vitesse,new Vecteur(),couleur);
 
 
 
-/**
+    /**
  * @return the position
  */
 public Vecteur getPosition()
@@ -79,9 +80,15 @@ return this.position;
 }
 
 
+    public Color getCouleur() {
+        return couleur;
+    }
 
+    public void setCouleur(Color couleur) {
+        this.couleur = couleur;
+    }
 
-/**
+    /**
  * @return the rayon
  */
 public double getRayon()
@@ -145,6 +152,7 @@ public double masse() {return ro*Geop.volumeSphère(rayon);}
 public  void  déplacer( double deltaT)
 {
 Cinematique.mouvementUniformémentAccéléré( this.getPosition(), this.getVitesse(), this.getAccélération(), deltaT);
+
 }
 
 /**
@@ -206,9 +214,24 @@ public void dessine (Graphics g)    // référence awt : mauvais
     }
 
 
+
+
+
+
+
+
+
 public String toString() 
     {
     return "centre = " + position + " rayon = "+rayon +  " vitesse = " + vitesse + " accélération = " + accélération + " couleur = " + couleur + "clef = " + clef;
+    }
+
+    void voices(int i) {
+    }
+
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+
     }
 
 //----------------- classe Bille -------------------------------------
