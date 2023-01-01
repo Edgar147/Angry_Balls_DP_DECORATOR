@@ -6,6 +6,7 @@ import java.io.File;
 import java.util.Vector;
 
 import exodecorateur_angryballs.maladroit.modele.*;
+import exodecorateur_angryballs.maladroit.vues.EcouteurSouris;
 import mesmaths.geometrie.base.Vecteur;
 import musique.SonLong;
 //import exodecorateur_angryballs.maladroit.modele.brouillons.BilleMvtNewtonArret;
@@ -96,22 +97,30 @@ billes.add(billeNoire = new BilleHurlanteMvtNewtonArret(p4, rayon, v4,  Color.bl
 
 cadre.addChoixHurlementListener(billeNoire);  // à présent on peut changer le son de la bille qui hurle*/
 
-    Bille bille []= new Bille[5];
+    Bille bille []= new Bille[6];
 
     bille[0]=new BilleBasique(p0,rayon,v0,Color.red);
     bille[1]=new BilleBasique(p1, rayon, v1,  Color.yellow);
     bille[2]=new BilleBasique(p2, rayon, v2, Color.green);
     bille[3]=new BilleBasique(p3, rayon, v3, Color.cyan);
-    bille[4]=new BilleBasique(p4, rayon, v4,  Color.black);
+    bille[4]=new BilleBasique(new Vecteur(100,300), 20, new Vecteur(0,0),  Color.black);
+    //bille[5]=new BilleBasique(new Vecteur(100,300), 60, new Vecteur(0,0),  Color.black);
 
 //--------------
 
-    billes.add(bille[0]= new ContactRebond(bille[0]) ); //      BilleMvtRURebond(p0, rayon, v0, Color.red);
+/*    billes.add(bille[0]= new ContactRebond(bille[0]) ); //      BilleMvtRURebond(p0, rayon, v0, Color.red);
     billes.add(bille[1]= new MvtGravity( new MvtFrotAir(     new ContactRebond(bille[1])      ),new Vecteur(0,0.001))); //BilleMvtPesanteurFrottementRebond(p1, rayon, v1, new Vecteur(0,0.001), Color.yellow)
     billes.add(bille[2]= new MvtAttire( new MvtFrotAir(     new ContactRebond(bille[2])      )));    // BilleMvtNewtonFrottementRebond(p2, rayon, v2, Color.green));
     billes.add(bille[3]= new ContactTravers(bille[3]) ); // BilleMvtRUPasseMurailles(p3, rayon, v3, Color.cyan));
     billes.add(  bille[4]= new  MvtAttire(    new Hurlante( new ContactRebond(bille[4])       ,hurlements[choixHurlementInitial], cadre )));  //BilleHurlanteMvtNewtonArret(p4, rayon, v4,  Color.black,hurlements[choixHurlementInitial], cadre))
-    cadre.addChoixHurlementListener(bille[4]);
+    cadre.addChoixHurlementListener(bille[4]);*/
+
+    Pilot p= new Pilot(bille[4],cadre);
+    //Pilot c= new Pilot(bille[5],cadre);
+   // cadre.addMouseListener();
+    billes.add( p);
+    //billes.add( c);
+
    // billes.add(  bille[4]= new MvtRect(    new Hurlante( new ContactRebond(bille[4])       ,hurlements[choixHurlementInitial], cadre )));
 
 
@@ -129,13 +138,17 @@ AnimationBilles animationBilles = new AnimationBilles(billes, cadre);
 //----------------------- mise en place des écouteurs de boutons qui permettent de contrôler (un peu...) l'application -----------------
 
 EcouteurBoutonLancer écouteurBoutonLancer = new EcouteurBoutonLancer(animationBilles);
-EcouteurBoutonArreter écouteurBoutonArrêter = new EcouteurBoutonArreter(animationBilles); 
+EcouteurBoutonArreter écouteurBoutonArrêter = new EcouteurBoutonArreter(animationBilles);
+    EcouteurSouris es= new EcouteurSouris(p);
+    //EcouteurSouris es2= new EcouteurSouris(c);
 
 //------------------------- activation des écouteurs des boutons et ça tourne tout seul ------------------------------
 
-
-cadre.lancerBilles.addActionListener(écouteurBoutonLancer);             // pourrait être remplacé par Observable - Observer 
+cadre.billard.addMouseListener(es);
+//cadre.billard.addMouseListener(es2);
+cadre.lancerBilles.addActionListener(écouteurBoutonLancer);             // pourrait être remplacé par Observable - Observer
 cadre.arrêterBilles.addActionListener(écouteurBoutonArrêter);           // pourrait être remplacé par Observable - Observer
+
 
 
 

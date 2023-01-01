@@ -70,6 +70,25 @@ this(position,rayon,vitesse,new Vecteur(),couleur);
 }
 
 
+    public void setPosition(Vecteur position) {
+        this.position = position;
+    }
+
+    public void setRayon(double rayon) {
+        this.rayon = rayon;
+    }
+
+    public void setVitesse(Vecteur vitesse) {
+        this.vitesse = vitesse;
+    }
+
+    public void setAccélération(Vecteur accélération) {
+        this.accélération = accélération;
+    }
+
+    public static void setRo(double ro) {
+        Bille.ro = ro;
+    }
 
     /**
  * @return the position
