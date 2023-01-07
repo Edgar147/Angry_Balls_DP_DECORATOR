@@ -235,11 +235,6 @@ public void dessine (Graphics g)    // référence awt : mauvais
 
 
 
-
-
-
-
-
 public String toString() 
     {
     return "centre = " + position + " rayon = "+rayon +  " vitesse = " + vitesse + " accélération = " + accélération + " couleur = " + couleur + "clef = " + clef;

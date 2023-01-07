@@ -19,4 +19,5 @@ public class ContactStop extends DecorateurBille {
         this.billeDecore.collisionContour(abscisseCoinHautGauche,ordonnéeCoinHautGauche,largeur,hauteur);
 
     }
+
 }

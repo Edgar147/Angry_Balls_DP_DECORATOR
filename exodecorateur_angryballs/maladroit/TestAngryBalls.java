@@ -1,17 +1,15 @@
 package exodecorateur_angryballs.maladroit;
 
 import java.awt.Color;
-import java.awt.event.ItemListener;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.Vector;
 
 import exodecorateur_angryballs.maladroit.modele.*;
-import exodecorateur_angryballs.maladroit.vues.EcouteurSouris;
 import mesmaths.geometrie.base.Vecteur;
 import musique.SonLong;
 //import exodecorateur_angryballs.maladroit.modele.brouillons.BilleMvtNewtonArret;
 import exodecorateur_angryballs.maladroit.vues.CadreAngryBalls;
-import exodecorateur_angryballs.maladroit.vues.VueBillard;
 
 
 /**
@@ -103,22 +101,26 @@ cadre.addChoixHurlementListener(billeNoire);  // à présent on peut changer le so
     bille[1]=new BilleBasique(p1, rayon, v1,  Color.yellow);
     bille[2]=new BilleBasique(p2, rayon, v2, Color.green);
     bille[3]=new BilleBasique(p3, rayon, v3, Color.cyan);
-    bille[4]=new BilleBasique(new Vecteur(100,300), 20, new Vecteur(0,0),  Color.black);
-    //bille[5]=new BilleBasique(new Vecteur(100,300), 60, new Vecteur(0,0),  Color.black);
+    bille[4]=new BilleBasique(p4, rayon, v4,  Color.black);
+    //bille[4]=new BilleBasique(new Vecteur(100,300), 20, new Vecteur(0,0),  Color.black);
+    bille[5]=new BilleBasique(new Vecteur(100,200), 30, new Vecteur(0,0),  Color.black);
 
 //--------------
 
-/*    billes.add(bille[0]= new ContactRebond(bille[0]) ); //      BilleMvtRURebond(p0, rayon, v0, Color.red);
-    billes.add(bille[1]= new MvtGravity( new MvtFrotAir(     new ContactRebond(bille[1])      ),new Vecteur(0,0.001))); //BilleMvtPesanteurFrottementRebond(p1, rayon, v1, new Vecteur(0,0.001), Color.yellow)
+    //billes.add(bille[0]= new ContactRebond(bille[0]) ); //      BilleMvtRURebond(p0, rayon, v0, Color.red);
+   /* billes.add(bille[1]= new MvtGravity( new MvtFrotAir(     new ContactRebond(bille[1])      ),new Vecteur(0,0.001))); //BilleMvtPesanteurFrottementRebond(p1, rayon, v1, new Vecteur(0,0.001), Color.yellow)
     billes.add(bille[2]= new MvtAttire( new MvtFrotAir(     new ContactRebond(bille[2])      )));    // BilleMvtNewtonFrottementRebond(p2, rayon, v2, Color.green));
     billes.add(bille[3]= new ContactTravers(bille[3]) ); // BilleMvtRUPasseMurailles(p3, rayon, v3, Color.cyan));
     billes.add(  bille[4]= new  MvtAttire(    new Hurlante( new ContactRebond(bille[4])       ,hurlements[choixHurlementInitial], cadre )));  //BilleHurlanteMvtNewtonArret(p4, rayon, v4,  Color.black,hurlements[choixHurlementInitial], cadre))
     cadre.addChoixHurlementListener(bille[4]);*/
+   // billes.add(bille[5]=  new Pilot(new ContactRebond(bille[5])));
 
-    Pilot p= new Pilot(bille[4],cadre);
+    billes.add(bille[5]=  new Pilot(new MvtGravity(new MvtFrotAir( new Hurlante(new ContactRebond(bille[5]) ,hurlements[choixHurlementInitial], cadre)),new Vecteur(0,0.001))));
+    cadre.addChoixHurlementListener(bille[5]);
+            //Pilot p= new Pilot(bille[5]);
     //Pilot c= new Pilot(bille[5],cadre);
    // cadre.addMouseListener();
-    billes.add( p);
+    //billes.add(bille[5]);
     //billes.add( c);
 
    // billes.add(  bille[4]= new MvtRect(    new Hurlante( new ContactRebond(bille[4])       ,hurlements[choixHurlementInitial], cadre )));
@@ -139,12 +141,12 @@ AnimationBilles animationBilles = new AnimationBilles(billes, cadre);
 
 EcouteurBoutonLancer écouteurBoutonLancer = new EcouteurBoutonLancer(animationBilles);
 EcouteurBoutonArreter écouteurBoutonArrêter = new EcouteurBoutonArreter(animationBilles);
-    EcouteurSouris es= new EcouteurSouris(p);
+    //EcouteurSouris es= new EcouteurSouris(p);
     //EcouteurSouris es2= new EcouteurSouris(c);
 
 //------------------------- activation des écouteurs des boutons et ça tourne tout seul ------------------------------
 
-cadre.billard.addMouseListener(es);
+cadre.billard.addMouseListener((MouseListener) bille[5]);
 //cadre.billard.addMouseListener(es2);
 cadre.lancerBilles.addActionListener(écouteurBoutonLancer);             // pourrait être remplacé par Observable - Observer
 cadre.arrêterBilles.addActionListener(écouteurBoutonArrêter);           // pourrait être remplacé par Observable - Observer
