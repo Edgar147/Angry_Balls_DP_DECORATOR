@@ -4,18 +4,19 @@ import java.awt.event.MouseEvent;
 
 public abstract class ControleurEtat {
 	
-	public ControleurGeneral controleurgeneral;
-	public ControleurEtat precedant;
-	public ControleurEtat suivants[];
-	
-	public ControleurEtat(ControleurGeneral controleurgeneral, ControleurEtat precedant) {
-		this.controleurgeneral = controleurgeneral;
+	public ControleurGeneral controleurGeneral;
+	public ControleurEtat precedant,suivant;
+
+	public ControleurEtat(ControleurGeneral controleurGeneral, ControleurEtat suivant,ControleurEtat precedant) {
+		super();
+		this.controleurGeneral = controleurGeneral;
 		this.precedant = precedant;
-		this.suivants = null;
+		this.suivant = suivant;
 	}
 	
 	// Les methodes suivantes ne sont pas des evenements, elle seront completer dans les classes dériver au besoin
-	public abstract void mousePressed(MouseEvent e);
-	public abstract void mouseReleased(MouseEvent e);
+
+	public  void mousePressed(MouseEvent e){};
+	public  void mouseReleased(MouseEvent e){};
 	
 }

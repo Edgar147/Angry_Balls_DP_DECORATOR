@@ -1,39 +1,57 @@
 package exodecorateur_angryballs.maladroit.controleur;
 
+import exodecorateur_angryballs.maladroit.modele.Bille;
+import exodecorateur_angryballs.maladroit.modele.Pilot;
+import exodecorateur_angryballs.maladroit.vues.CadreAngryBalls;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
-public class ControleurGeneral implements MouseListener {
+public class ControleurGeneral  implements MouseListener {
+	CadreAngryBalls cadre; //reference vue
+	protected Pilot billePilote;  //reference modele
 
-	/* On peut (en theorie) avoir un nombre de bille pillotee variable donc il vaut mieux proceder avec un tableau
-	 * Tout de fois le controleur courant et debut seront laisser en dehors de ce tableau par choix et parce qu'il ne varient pas en nombre
-	 */
-	public ControleurEtat[] controleursetat;
-	public ControleurEtat controleurcourant, controleurdebut;
-	
-	/*
-	 * TODO constructeur, membres de la classe (les restants) et fonction(s)
-	 * Par rapport aux membres il manque le cadre (pour la vue) et probablement les billes (je sais pas trop)
-	 * */
-	
-	
+	ControleurEtat controleurCourant;
+	Controleur1erClique controleur1erClique;
+	Controleur2emeClique controleur2emeClique;
+
+
+	public ControleurGeneral(CadreAngryBalls cadre, Pilot billePilote) {
+		this.cadre = cadre;
+		this.billePilote=billePilote;
+		this.installeControleur();
+		this.cadre.addMouseListener(this);
+
+	}
+
 	private void installeControleur() {
-		// TODO
+		this.controleur2emeClique=new Controleur2emeClique(this,null,null);
+		this.controleur1erClique=new Controleur1erClique(this,controleur2emeClique,null);
+
+		//liens oubliées
+		this.controleur2emeClique.precedant=this.controleur1erClique;
+		this.controleur1erClique.suivant=this.controleur2emeClique;
+
+		this.controleurCourant=this.controleur1erClique;
+
+
+
 	}
 	
 	public void setControleur(ControleurEtat controleurEtat) {
-		this.controleurcourant = controleurEtat;
+		this.controleurCourant = controleurEtat;
 	}
 
 	// MouseEvent
 	@Override
 	public void mousePressed(MouseEvent e) {
-		this.controleurcourant.mousePressed(e);
+		this.controleurCourant.mousePressed(e);
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		this.controleurcourant.mouseReleased(e);
+		this.controleurCourant.mouseReleased(e);
 	}
 	
 	

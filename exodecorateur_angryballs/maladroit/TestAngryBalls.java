@@ -5,6 +5,7 @@ import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.Vector;
 
+import exodecorateur_angryballs.maladroit.controleur.ControleurGeneral;
 import exodecorateur_angryballs.maladroit.modele.*;
 import mesmaths.geometrie.base.Vecteur;
 import musique.SonLong;
@@ -125,6 +126,7 @@ cadre.addChoixHurlementListener(billeNoire);  // à présent on peut changer le so
 
    // billes.add(  bille[4]= new MvtRect(    new Hurlante( new ContactRebond(bille[4])       ,hurlements[choixHurlementInitial], cadre )));
 
+    ControleurGeneral controleurGeneral = new ControleurGeneral(cadre, (Pilot) bille[5]);
 
 
 
@@ -146,7 +148,7 @@ EcouteurBoutonArreter écouteurBoutonArrêter = new EcouteurBoutonArreter(animatio
 
 //------------------------- activation des écouteurs des boutons et ça tourne tout seul ------------------------------
 
-cadre.billard.addMouseListener((MouseListener) bille[5]);
+cadre.billard.addMouseListener(controleurGeneral);//ICI IL FAUT AJOUTER CONTROLLEURGENERAL CM PARAM!!!
 //cadre.billard.addMouseListener(es2);
 cadre.lancerBilles.addActionListener(écouteurBoutonLancer);             // pourrait être remplacé par Observable - Observer
 cadre.arrêterBilles.addActionListener(écouteurBoutonArrêter);           // pourrait être remplacé par Observable - Observer
