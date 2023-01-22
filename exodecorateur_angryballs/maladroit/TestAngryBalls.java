@@ -1,6 +1,6 @@
 package exodecorateur_angryballs.maladroit;
 
-import java.awt.Color;
+import java.awt.*;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.Vector;
@@ -104,7 +104,7 @@ cadre.addChoixHurlementListener(billeNoire);  // à présent on peut changer le so
     bille[3]=new BilleBasique(p3, rayon, v3, Color.cyan);
     bille[4]=new BilleBasique(p4, rayon, v4,  Color.black);
     //bille[4]=new BilleBasique(new Vecteur(100,300), 20, new Vecteur(0,0),  Color.black);
-    bille[5]=new BilleBasique(new Vecteur(100,200), 30, new Vecteur(0,0),  Color.black);
+    bille[5]=new BilleBasique(new Vecteur(300,150), 30, new Vecteur(0,0),  Color.black);
 
 //--------------
 
@@ -116,7 +116,12 @@ cadre.addChoixHurlementListener(billeNoire);  // à présent on peut changer le so
     cadre.addChoixHurlementListener(bille[4]);*/
    // billes.add(bille[5]=  new Pilot(new ContactRebond(bille[5])));
 
-    billes.add(bille[5]=  new Pilot(new MvtGravity(new MvtFrotAir( new Hurlante(new ContactRebond(bille[5]) ,hurlements[choixHurlementInitial], cadre)),new Vecteur(0,0.001))));
+    //billes.add(bille[5]=  new Pilot(new MvtGravity(new MvtFrotAir( new Hurlante(new ContactRebond(bille[5]) ,hurlements[choixHurlementInitial], cadre)),new Vecteur(0,0.001))));
+//ABC
+
+    billes.add(bille[5]=  new Pilot((new MvtFrotAir( new Hurlante(new ContactRebond(bille[5]) ,hurlements[choixHurlementInitial], cadre)))));
+
+
     cadre.addChoixHurlementListener(bille[5]);
             //Pilot p= new Pilot(bille[5]);
     //Pilot c= new Pilot(bille[5],cadre);
@@ -150,9 +155,17 @@ EcouteurBoutonArreter écouteurBoutonArrêter = new EcouteurBoutonArreter(animatio
 
 cadre.billard.addMouseListener(controleurGeneral);//ICI IL FAUT AJOUTER CONTROLLEURGENERAL CM PARAM!!!
 //cadre.billard.addMouseListener(es2);
-cadre.lancerBilles.addActionListener(écouteurBoutonLancer);             // pourrait être remplacé par Observable - Observer
-cadre.arrêterBilles.addActionListener(écouteurBoutonArrêter);           // pourrait être remplacé par Observable - Observer
 
+    ButtonModel stopButtonModel = new ButtonModel();
+    ButtonModel startButtonModel = new ButtonModel();
+    Button stopButton = cadre.arrêterBilles;
+    Button startButton = cadre.lancerBilles;
+    new StopButtonController(stopButtonModel, stopButton,animationBilles,écouteurBoutonArrêter);
+    new StartButtonController(startButtonModel, startButton,animationBilles,écouteurBoutonLancer);
+
+
+ //   cadre.lancerBilles.addActionListener(écouteurBoutonLancer);             // pourrait être remplacé par Observable - Observer
+//cadre.arrêterBilles.addActionListener(écouteurBoutonArrêter);           // pourrait être remplacé par Observable - Observer
 
 
 
