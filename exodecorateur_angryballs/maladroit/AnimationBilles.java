@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import exodecorateur_angryballs.maladroit.modele.Bille;
 import exodecorateur_angryballs.maladroit.vues.VueBillard;
+import musique.SonLong;
 
 /**
  * responsable de l'animation des billes, c-à-d responsable du mouvement de la liste des billes. met perpétuellement à jour les billes. 
@@ -18,6 +19,7 @@ public class AnimationBilles  implements Runnable
 Vector<Bille> billes;   // la liste de toutes les billes en mouvement 
 VueBillard vueBillard;    // la vue responsable du dessin des billes
 private Thread thread;    // pour lancer et arrêter les billes
+private SonLong soncollision;
 
 
 private static final double COEFF = 0.5;
@@ -26,11 +28,12 @@ private static final double COEFF = 0.5;
  * @param billes
  * @param vueBillard
  */
-public AnimationBilles(Vector<Bille> billes, VueBillard vueBillard)
+public AnimationBilles(Vector<Bille> billes, VueBillard vueBillard, SonLong soncollision)
 {
 this.billes = billes;
 this.vueBillard = vueBillard;
 this.thread = null;     //est-ce utile ?
+this.soncollision = soncollision;
 }
 
 @Override
@@ -57,7 +60,11 @@ try
             billeCourante = billes.get(i);
             billeCourante.déplacer(deltaT);                 // mise à jour position et vitesse de cette bille
             billeCourante.gestionAccélération(billes);      // calcul de l'accélération subie par cette bille
-            billeCourante.gestionCollisionBilleBille(billes);
+            boolean collision = false;
+            collision = billeCourante.gestionCollisionBilleBille(billes);
+            if(collision) {
+            	this.soncollision.joue(0, 1, 0, 1);
+            }
             billeCourante.collisionContour( 0, 0, vueBillard.largeurBillard(), vueBillard.hauteurBillard());        //System.err.println("billes = " + billes);
             }
         

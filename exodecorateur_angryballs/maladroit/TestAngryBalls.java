@@ -40,6 +40,10 @@ Vector<SonLong> sonsLongs = OutilsConfigurationBilleHurlante.chargeSons(répertoi
  
 SonLong hurlements[] = SonLong.toTableau(sonsLongs);                // on obtient un tableau de SonLong
 
+//-------------------- chargement des sons pour les collisions --------------------------------------
+
+Vector<SonLong> sonsCollisions = OutilsConfigurationBilleHurlante.chargeSons(répertoireSon, "config_audio_bille_collision.txt");
+
 //------------------- création de la liste (pour l'instant vide) des billes -----------------------
 
 Vector<Bille> billes = new Vector<Bille>();
@@ -108,12 +112,12 @@ cadre.addChoixHurlementListener(billeNoire);  // à présent on peut changer le so
 
 //--------------
 
-    //billes.add(bille[0]= new ContactRebond(bille[0]) ); //      BilleMvtRURebond(p0, rayon, v0, Color.red);
-   /* billes.add(bille[1]= new MvtGravity( new MvtFrotAir(     new ContactRebond(bille[1])      ),new Vecteur(0,0.001))); //BilleMvtPesanteurFrottementRebond(p1, rayon, v1, new Vecteur(0,0.001), Color.yellow)
+    billes.add(bille[0]= new ContactRebond(bille[0]) ); //      BilleMvtRURebond(p0, rayon, v0, Color.red);
+    billes.add(bille[1]= new MvtGravity( new MvtFrotAir(     new ContactRebond(bille[1])      ),new Vecteur(0,0.001))); //BilleMvtPesanteurFrottementRebond(p1, rayon, v1, new Vecteur(0,0.001), Color.yellow)
     billes.add(bille[2]= new MvtAttire( new MvtFrotAir(     new ContactRebond(bille[2])      )));    // BilleMvtNewtonFrottementRebond(p2, rayon, v2, Color.green));
     billes.add(bille[3]= new ContactTravers(bille[3]) ); // BilleMvtRUPasseMurailles(p3, rayon, v3, Color.cyan));
     billes.add(  bille[4]= new  MvtAttire(    new Hurlante( new ContactRebond(bille[4])       ,hurlements[choixHurlementInitial], cadre )));  //BilleHurlanteMvtNewtonArret(p4, rayon, v4,  Color.black,hurlements[choixHurlementInitial], cadre))
-    cadre.addChoixHurlementListener(bille[4]);*/
+    cadre.addChoixHurlementListener(bille[4]);
    // billes.add(bille[5]=  new Pilot(new ContactRebond(bille[5])));
 
     //billes.add(bille[5]=  new Pilot(new MvtGravity(new MvtFrotAir( new Hurlante(new ContactRebond(bille[5]) ,hurlements[choixHurlementInitial], cadre)),new Vecteur(0,0.001))));
@@ -142,7 +146,7 @@ cadre.addChoixHurlementListener(billeNoire);  // à présent on peut changer le so
 
 //-------------------- création de l'objet responsable de l'animation (c'est un thread séparé) -----------------------
 
-AnimationBilles animationBilles = new AnimationBilles(billes, cadre);
+AnimationBilles animationBilles = new AnimationBilles(billes, cadre, sonsCollisions.get(0));
 
 //----------------------- mise en place des écouteurs de boutons qui permettent de contrôler (un peu...) l'application -----------------
 
