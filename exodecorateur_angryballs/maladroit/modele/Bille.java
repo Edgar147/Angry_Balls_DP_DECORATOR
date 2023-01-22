@@ -214,26 +214,6 @@ return OutilsBille.gestionCollisionBilleBille(this, billes);
 public abstract void collisionContour(double abscisseCoinHautGauche, double ordonnéeCoinHautGauche, double largeur, double hauteur);
 
 
-/* cette méthode engendre des clignotements : idée : utiliser l'active rendering et le double buffering pour éviter ça */
-
-public void dessine (Graphics g)    // référence awt : mauvais
-    {
-    int width, height;
-    int xMin, yMin;
-    
-    xMin = (int)Math.round(position.x-rayon);
-    yMin = (int)Math.round(position.y-rayon);
-
-    width = height = 2*(int)Math.round(rayon); 
-
-    g.setColor(couleur);
-    g.fillOval( xMin, yMin, width, height);
-    g.setColor(Color.CYAN);
-    g.drawOval(xMin, yMin, width, height);
-    }
-
-
-
 
 public String toString() 
     {
